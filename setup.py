@@ -10,9 +10,9 @@ VERSION = '0.1'
 setup(
     name         = NAME,
     version      = VERSION,
-    author       = 'Masaki Nakagawa',
+    author       = 'NAKAGAWA Masaki',
     author_email = 'masaki.nakagawa@gmail.com',
-    license      = 'BSD',
+    license      = 'MIT',
     packages     = [ PACKAGE ],
     package_data = {
         PACKAGE : [
