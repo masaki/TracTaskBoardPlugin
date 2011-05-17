@@ -1,0 +1,96 @@
+/* -*- coding: utf-8 -*- */
+
+.ticket_placeholder {
+    width: 98%;
+    height: 9em;
+    border: 1px dashed white;
+    background: transparent;
+}
+
+/* board */
+.taskboard {
+    width: 100%;
+}
+
+/* lane */
+.taskboard_lane {
+    float: left;
+    margin: 0 auto;
+    padding: 0.5em 0.2em;
+    min-width: 150px;
+    height: 100%;
+    background: #004040;
+    border-top: 8px ridge #9b6700;
+    border-bottom: 15px ridge #9b6700;
+}
+.taskboard_lane:first-child {
+    border-left: 5px ridge #9b6700;
+}
+.taskboard_lane:last-child {
+    border-right: 5px ridge #9b6700;
+}
+
+div {
+    zoom: 100%; /* for IE */
+}
+.taskboard:after { /* clearfix */
+    content: ".";
+    display: block;
+    visibility: hidden;
+    height: 0.1px;
+    font-size: 0.1em;
+    line-height: 0;
+    clear: both;
+}
+
+/* title of lane */
+.taskboard_lane .taskboard_lane_status {
+    margin: 0 0.5em;
+    border-bottom: 2px solid white;
+    color: white;
+    text-align: center;
+}
+
+/* sortable area */
+.taskboard_lane .taskboard_tickets {
+    margin: 0;
+    padding: 1em 0;
+}
+
+/* ticket */
+li.taskboard_ticket {
+    list-style-type: none;
+    margin: 5px 0px;
+    width: 98%;
+    background: white;
+}
+
+li.taskboard_ticket h3 {
+    margin: 0.3em;
+    width: 99%;
+    border-bottom: 1px solid black;
+}
+
+li.taskboard_ticket h3 span {
+    padding-left: 0.5em;
+}
+li.taskboard_ticket h3 a {
+    color: #b00;
+    text-decoration: none;
+    border: none;
+}
+
+li.taskboard_ticket th {
+    text-align: right; 
+    font-weight: bold;
+    padding: 0.1em 0.5em;
+}
+
+li.taskboard_ticket th:after { 
+    content: " : "; 
+}
+
+li.taskboard_ticket td { 
+    text-align: left;
+    padding: 0.1em 0.5em;
+}
