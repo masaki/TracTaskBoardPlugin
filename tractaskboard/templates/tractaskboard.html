@@ -3,7 +3,6 @@
     xmlns:py="http://genshi.edgewall.org/"
     xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
     <div py:with="width=100/len(tickets)-1; api=req.href.tractaskboard()" class="taskboard">
-        <a href="${api}" class="taskboard_api" style="display:none"/>
         <div py:for="(status, ticket_group) in tickets.iteritems()"
             class="taskboard_lane" style="width: ${width}%">
             <h2 class="taskboard_lane_status">${status}</h2>
@@ -26,6 +25,11 @@
                         </dd>
                         </py:for>
                     </dl>
+                    <form action="${api}" method="post" class="ticket_status_form" style="display:none">
+                        <input type="hidden" name="id" value="${id}"/>
+                        <input type="hidden" name="status" value=""/>
+                        <input type="hidden" name="__FORM_TOKEN" value="${req.form_token}"/>
+                    </form>
                 </li>
             </ul>
         </div>

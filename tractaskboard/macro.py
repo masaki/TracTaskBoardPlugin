@@ -10,7 +10,7 @@ from trac.ticket.query import Query
 from trac.wiki.api import parse_args, IWikiMacroProvider
 from trac.web.chrome import add_script, add_stylesheet, ITemplateProvider, Chrome
 
-class Macro(Component):
+class TaskBoardMacro(Component):
     implements(ITemplateProvider, IWikiMacroProvider)
 
     # taken from QueryChart, thanks
@@ -72,6 +72,7 @@ class Macro(Component):
     def expand_macro(self, formatter, name, content):
         req = formatter.req
         add_script(req, 'tractaskboard/js/jquery-ui.js')
+        add_script(req, 'tractaskboard/js/jquery.form.js')
         add_script(req, 'tractaskboard/js/tractaskboard.js')
         add_stylesheet(req, 'tractaskboard/css/tractaskboard.css')
 
