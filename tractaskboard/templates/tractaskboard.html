@@ -1,0 +1,33 @@
+<!-- -*- coding: utf-8 -*- -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:py="http://genshi.edgewall.org/"
+    xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+    <div py:with="width=100/len(tickets)-1; api=req.href.tractaskboard()" class="taskboard">
+        <a href="${api}" class="taskboard_api" style="display:none"/>
+        <div py:for="(status, ticket_group) in tickets.iteritems()"
+            class="taskboard_lane" style="width: ${width}%">
+            <h2 class="taskboard_lane_status">${status}</h2>
+            <ul class="taskboard_tickets">
+                <li py:for="ticket in ticket_group"
+                    py:with="id=ticket['id']; owner=ticket['owner']"
+                    class="taskboard_ticket priority_${ticket['priority']}" id="taskboard_ticket_${id}">
+                    <h3>
+                        <a href="${req.href.ticket(id)}">#${id}</a>
+                        <span class="summary">${ticket['summary']}</span>
+                    </h3>
+                    <dl>
+                        <py:for each="label in args['column']">
+                        <dt>${label}</dt>
+                        <dd>
+                            <py:choose>
+                            <py:when test="ticket[label] == ''">&nbsp;</py:when>
+                            <py:otherwise>${ticket[label]}</py:otherwise>
+                            </py:choose>
+                        </dd>
+                        </py:for>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</html>

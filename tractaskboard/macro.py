@@ -8,7 +8,7 @@ from trac.core import *
 from trac.ticket.api import TicketSystem
 from trac.ticket.query import Query
 from trac.wiki.api import parse_args, IWikiMacroProvider
-from trac.web.chrome import add_script, add_stylesheet, ITemplateProvider
+from trac.web.chrome import add_script, add_stylesheet, ITemplateProvider, Chrome
 
 class Macro(Component):
     implements(ITemplateProvider, IWikiMacroProvider)
@@ -72,23 +72,32 @@ class Macro(Component):
     def expand_macro(self, formatter, name, content):
         req = formatter.req
         add_script(req, 'tractaskboard/js/jquery-ui.js')
-        add_script(req, 'tractaskboard/js/jquery.equalheights.js')
         add_script(req, 'tractaskboard/js/tractaskboard.js')
         add_stylesheet(req, 'tractaskboard/css/tractaskboard.css')
 
-        kw = { 'query': '' }
+        kw = {
+            'query' : '',
+            'status': [ 'new', 'accepted', 'closed' ],
+            'column': [ 'owner', 'priority', 'type', 'component' ],
+        }
         for arg in re.compile(r'\s*,\s*').split(content):
             k,v = arg.split(':')
+            if k == 'status' or k == 'column':
+                v = v.split('|')
             kw[k] = v
-        if kw.get('status'):
-            kw['status'] = kw['status'].split('|')
         self.env.log.debug(kw)
 
         tickets = self._get_tickets(req, kw)
         if tickets == None:
             raise TracError('No data matched')
 
-        return self._render(req, tickets, kw)
+        data = {
+            'users'  : [username for username, name, email in self.env.get_known_users()],
+            'tickets': tickets,
+            'req'    : req,
+            'args'   : kw,
+        }
+        return Chrome(self.env).render_template(req, 'tractaskboard.html', data, None, fragment=True)
 
 
     def _get_tickets(self, req, args):
@@ -124,41 +133,3 @@ class Macro(Component):
             if ticket['status'] in args['status']:
                 new_tickets[ticket['status']].append(ticket)
         return new_tickets
-
-    def _render(self, req, tickets, args):
-        board = tag.div(class_='taskboard')
-
-        width = 100/len(tickets) - 1
-        for label in args['status']:
-            # ticket lane
-            lane = tag.div(
-                tag.h2(label, class_='taskboard_lane_status'),
-                class_='taskboard_lane',
-                style="width: %s%%" % width
-            )
-            board.append(lane)
-
-            ul = tag.ul(class_='taskboard_tickets')
-            lane.append(ul)
-            for ticket in tickets[label]:
-                # ticket
-                li = tag.li(
-                    tag.h3(
-                        tag.a("#%s" % ticket['id'], href=req.href.ticket(ticket['id'])),
-                        tag.span(ticket['summary'])
-                    ),
-                    tag.a(href=req.href.tractaskboard(), class_='taskboard_api', style='display:none'),
-                    class_='taskboard_ticket',
-                    id="taskboard_ticket_%s" % ticket['id'],
-                )
-                ul.append(li)
-
-                # ticket params
-                fields = [ 'owner', 'priority', 'milestone', 'component', 'type' ]
-                table = tag.table
-                li.append(table)
-                for key in fields:
-                    value = ticket[key]
-                    table.append(tag.tr(tag.th(key), tag.td(value, class_=key)))
-
-        return board

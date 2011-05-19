@@ -1,37 +1,23 @@
 /* -*- coding: utf-8 -*- */
 
-.ticket_placeholder {
-    width: 98%;
-    height: 9em;
-    border: 1px dashed white;
-    background: transparent;
+.taskboard_placeholder {
+    margin: auto;
+    width: 92%;
+    height: 100px;
+    border: 1px dashed #996;
+    background: #ffd;
+    list-style: none;
 }
 
 /* board */
 .taskboard {
-    width: 100%;
-}
-
-/* lane */
-.taskboard_lane {
     float: left;
-    margin: 0 auto;
-    padding: 0.5em 0.2em;
-    min-width: 150px;
-    height: 100%;
-    background: #004040;
-    border-top: 8px ridge #9b6700;
-    border-bottom: 15px ridge #9b6700;
-}
-.taskboard_lane:first-child {
-    border-left: 5px ridge #9b6700;
-}
-.taskboard_lane:last-child {
-    border-right: 5px ridge #9b6700;
-}
-
-div {
+    display: inline-block;
     zoom: 100%; /* for IE */
+    margin: 1em auto;
+    padding: 0;
+    width: 100%;
+    border-left: solid 2px gray;
 }
 .taskboard:after { /* clearfix */
     content: ".";
@@ -43,54 +29,73 @@ div {
     clear: both;
 }
 
+/* lane */
+.taskboard_lane {
+    float: left;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 0 3px;
+    height: 100%;
+    border-right: solid 2px gray;
+    border-top: solid 2px gray;
+    border-bottom: solid 2px gray;
+}
+
 /* title of lane */
-.taskboard_lane .taskboard_lane_status {
-    margin: 0 0.5em;
-    border-bottom: 2px solid white;
-    color: white;
+.taskboard_lane_status {
+    margin: 0;
+    padding: 0.5em;
+    color: black;
     text-align: center;
 }
 
 /* sortable area */
-.taskboard_lane .taskboard_tickets {
+.taskboard_tickets {
     margin: 0;
-    padding: 1em 0;
+    padding: 0;
 }
 
 /* ticket */
-li.taskboard_ticket {
+.taskboard_ticket {
     list-style-type: none;
-    margin: 5px 0px;
-    width: 98%;
-    background: white;
+    margin: 5px auto;
+    padding: 5px;
+    width: 90%;
+    border: solid 1px #996;
 }
 
-li.taskboard_ticket h3 {
+.taskboard_ticket h3 {
     margin: 0.3em;
     width: 99%;
     border-bottom: 1px solid black;
 }
-
-li.taskboard_ticket h3 span {
+.taskboard_ticket h3 span {
     padding-left: 0.5em;
 }
-li.taskboard_ticket h3 a {
+.taskboard_ticket h3 a {
     color: #b00;
     text-decoration: none;
     border: none;
 }
 
-li.taskboard_ticket th {
-    text-align: right; 
-    font-weight: bold;
-    padding: 0.1em 0.5em;
+.taskboard_ticket dl {
+    margin: 0.3em;
+    padding: 0.5em 0;
 }
-
-li.taskboard_ticket th:after { 
-    content: " : "; 
-}
-
-li.taskboard_ticket td { 
+.taskboard_ticket dl dt {
+    float: left;
+    clear: left;
+    min-width: 12em;
+    padding: 0.2em 0;
     text-align: left;
-    padding: 0.1em 0.5em;
+    font-weight: bold;
+}
+.taskboard_ticket dl dt:after {
+    content: ":";
+}
+.taskboard_ticket dl dd {
+    margin: 0;
+    padding: 0.2em 0;
+    text-align: left;
+    border-bottom: dashed 1px silver;
 }
