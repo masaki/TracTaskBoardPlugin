@@ -11,8 +11,8 @@ from trac.web.api import IRequestHandler
 class TaskBoardChangeHandler(Component):
     implements(IRequestHandler)
 
-    accepted_field = Option('tractaskboard', 'accepted_field', '')
-    closed_field   = Option('tractaskboard', 'closed_field',   '')
+    accepted_field = Option('taskboard', 'accepted_field', '')
+    closed_field   = Option('taskboard', 'closed_field',   '')
 
     # IRequestHandler methods
 
