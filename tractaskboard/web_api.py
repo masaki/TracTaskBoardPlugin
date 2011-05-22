@@ -24,8 +24,21 @@ class TaskBoardChangeHandler(Component):
         return re.compile(r'/taskboard(?:/.*)?$').match(req.path_info)
 
     def process_request(self, req):
+        if req.path_info == '/taskboard/workflow':
+            self._process_workflow(req)
+        elif req.path_info == '/taskboard/ticket':
+            self._process_ticket(req)
+
+    def _process_workflow(self, req):
+        #action = self._detect_action(req)
+        self._write_response(req, 200, { 'action': action })
+
+    def _process_ticket(self, req):
         self._update_ticket(req)
         self._write_response(req)
+
+    def _detect_action(self, req):
+        return ''
 
     def _update_ticket(self, req):
         values = req.args
