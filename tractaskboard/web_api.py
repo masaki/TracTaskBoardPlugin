@@ -11,15 +11,13 @@ from trac.web.api import IRequestHandler
 class TaskBoardChangeHandler(Component):
     implements(IRequestHandler)
 
-    acceptable_path = re.compile(r'/tractaskboard(?:/.*)?$')
-
     accepted_field = Option('tractaskboard', 'accepted_field', '')
     closed_field   = Option('tractaskboard', 'closed_field',   '')
 
     # IRequestHandler methods
 
     def match_request(self, req):
-        return self.acceptable_path.match(req.path_info)
+        return re.compile(r'/taskboard(?:/.*)?$').match(req.path_info)
 
     def process_request(self, req):
         self._update_ticket(req)
