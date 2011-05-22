@@ -2,6 +2,10 @@
 
 from datetime import date
 import re
+try:
+    import json
+except ImportError:
+    import simplejson as json
 
 from trac.core import *
 from trac.config import Option
@@ -54,10 +58,10 @@ class TaskBoardChangeHandler(Component):
     def _get_today_as_ymd(self):
         return date.today().strftime('%Y/%m/%d')
 
-    def _write_response(self, req):
-        body = 'OK'
-        req.send_response(200)
-        req.send_header('Content-Type', 'content=text/plain; charset=UTF-8')
+    def _write_response(self, req, status=200, data={}):
+        body = json.dumps(data)
+        req.send_response(int(status))
+        req.send_header('Content-Type', 'application/json; charset=UTF-8')
         req.send_header('Content-Length', str(len(body)))
         req.send_header('Cache-Control', 'no-cache')
         req.end_headers()
