@@ -5,7 +5,7 @@ from setuptools import setup
 
 NAME    = 'TracTaskBoard'
 PACKAGE = 'taskboard'
-VERSION = '0.1'
+VERSION = '0.2'
 
 setup(
     name         = NAME,
