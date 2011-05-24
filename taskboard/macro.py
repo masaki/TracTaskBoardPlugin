@@ -56,7 +56,7 @@ class TaskBoardMacro(Component):
     # ITemplateProvider methods
 
     def get_htdocs_dirs(self):
-        return [ ('tractaskboard', pkg_resources.resource_filename(__name__, 'htdocs')) ]
+        return [ ('taskboard', pkg_resources.resource_filename(__name__, 'htdocs')) ]
 
     def get_templates_dirs(self):
         return [ pkg_resources.resource_filename(__name__, 'templates') ]
@@ -71,10 +71,10 @@ class TaskBoardMacro(Component):
 
     def expand_macro(self, formatter, name, content):
         req = formatter.req
-        add_script(req, 'tractaskboard/js/jquery-ui.js')
-        add_script(req, 'tractaskboard/js/jquery.form.js')
-        add_script(req, 'tractaskboard/js/tractaskboard.js')
-        add_stylesheet(req, 'tractaskboard/css/tractaskboard.css')
+        add_script(req, 'taskboard/js/jquery-ui.js')
+        add_script(req, 'taskboard/js/jquery.form.js')
+        add_script(req, 'taskboard/js/taskboard.js')
+        add_stylesheet(req, 'taskboard/css/taskboard.css')
 
         kw = {
             'query' : '',
@@ -98,7 +98,7 @@ class TaskBoardMacro(Component):
             'req'    : req,
             'args'   : kw,
         }
-        return Chrome(self.env).render_template(req, 'tractaskboard.html', data, None, fragment=True)
+        return Chrome(self.env).render_template(req, 'taskboard.html', data, None, fragment=True)
 
 
     def _get_tickets(self, req, args):

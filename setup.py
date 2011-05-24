@@ -4,7 +4,7 @@
 from setuptools import setup
 
 NAME    = 'TracTaskBoard'
-PACKAGE = 'tractaskboard'
+PACKAGE = 'taskboard'
 VERSION = '0.1'
 
 setup(
@@ -23,7 +23,7 @@ setup(
     },
     entry_points = {
         'trac.plugins' : [
-            'tractaskboard = tractaskboard',
+            'taskboard = taskboard',
         ]
     },
 )

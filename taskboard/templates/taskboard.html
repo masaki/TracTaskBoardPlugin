@@ -2,13 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:py="http://genshi.edgewall.org/"
     xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
-    <div py:with="width=100/len(tickets)-1; api=req.href.tractaskboard()" class="taskboard">
+    <div py:with="width=100/len(tickets)-1" class="taskboard">
+        <input id="taskboard_api" type="hidden" value="${req.href.taskboard()}"/>
+        <input id="taskboard_rpc" type="hidden" value="${req.href.jsonrpc()}"/>
+        <input id="taskboard_form_token" type="hidden" value="${req.form_token}"/>
         <div py:for="(status, ticket_group) in tickets.iteritems()"
             class="taskboard_lane" style="width: ${width}%">
             <h2 class="taskboard_lane_status">${status}</h2>
             <ul class="taskboard_tickets">
-                <li py:for="ticket in ticket_group"
-                    py:with="id=ticket['id']; owner=ticket['owner']"
+                <li py:for="ticket in ticket_group" py:with="id=ticket['id']"
                     class="taskboard_ticket priority_${ticket['priority']}" id="taskboard_ticket_${id}">
                     <h3>
                         <a href="${req.href.ticket(id)}">#${id}</a>
@@ -25,11 +27,6 @@
                         </dd>
                         </py:for>
                     </dl>
-                    <form action="${api}" method="post" class="ticket_status_form" style="display:none">
-                        <input type="hidden" name="id" value="${id}"/>
-                        <input type="hidden" name="status" value=""/>
-                        <input type="hidden" name="__FORM_TOKEN" value="${req.form_token}"/>
-                    </form>
                 </li>
             </ul>
         </div>
