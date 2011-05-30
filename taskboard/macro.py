@@ -7,7 +7,7 @@ from genshi.builder import tag
 from trac.core import *
 from trac.ticket.api import TicketSystem
 from trac.ticket.query import Query
-from trac.wiki.api import parse_args, IWikiMacroProvider
+from trac.wiki.api import IWikiMacroProvider
 from trac.web.chrome import add_script, add_stylesheet, ITemplateProvider, Chrome
 
 class TaskBoardMacro(Component):
