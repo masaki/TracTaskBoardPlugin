@@ -42,9 +42,10 @@
 }
 
 /* title of lane */
-.taskboard_lane_status {
+.taskboard h2.taskboard_lane_status {
     margin: 0;
     padding: 0.5em;
+    border: none;
     color: black;
     text-align: center;
 }
@@ -66,7 +67,7 @@
 
 .taskboard_ticket h3 {
     margin: 0.3em;
-    width: 99%;
+    margin-right: 1em;
     border-bottom: 1px solid black;
 }
 .taskboard_ticket h3 span {
